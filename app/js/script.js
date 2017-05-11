@@ -17,11 +17,10 @@ const PARAMS = {
 // Client + Helper initialization
 const algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
 const algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
-const structuredDataHelper = algoliaHelper.derive(searchParameters => {
-    const params = searchParameters.setIndex(STRUCTURED_DATA_INDEX_NAME)
-    params.getRankingInfo = true
-    return params
-});
+const structuredDataHelper = algoliaHelper.derive(searchParameters => searchParameters
+  .setIndex(STRUCTURED_DATA_INDEX_NAME)
+  .setQueryParameter({getRankingInfo: true})
+);
 
 // DOM BINDING
 const $searchInput = document.getElementById('search-input');
